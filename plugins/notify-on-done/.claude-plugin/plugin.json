@@ -1,0 +1,13 @@
+{
+  "name": "notify-on-done",
+  "description": "Windows toast notification with project name when Claude Code finishes responding",
+  "version": "1.0.1",
+  "author": {
+    "name": "rarebek",
+    "url": "https://github.com/rarebek"
+  },
+  "homepage": "https://github.com/rarebek/claude-marketplace",
+  "repository": "https://github.com/rarebek/claude-marketplace",
+  "license": "MIT",
+  "keywords": ["notification", "windows", "toast"]
+}

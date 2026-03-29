@@ -1,8 +1,0 @@
-{
-  "name": "notify-on-done",
-  "description": "Windows toast notification with project name when Claude Code finishes responding. Uses BurntToast PowerShell module.",
-  "version": "1.0.0",
-  "author": "rarebek",
-  "platforms": ["win32"],
-  "prerequisites": "Install-Module -Name BurntToast -Scope CurrentUser -Force"
-}

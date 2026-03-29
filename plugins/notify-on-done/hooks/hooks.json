@@ -5,7 +5,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "powershell -NoProfile -Command \"$project = Split-Path -Leaf (Get-Location); New-BurntToastNotification -Text \\\"Claude Code - $project\\\", 'Done' -Sound 'IM' -UniqueIdentifier 'claude-code'\"",
+            "command": "powershell -NoProfile -Command \"$json = $input | Out-String; $json | Out-File -FilePath $env:USERPROFILE/.claude/stop-hook-debug.json -Force; $project = Split-Path -Leaf (Get-Location); New-BurntToastNotification -Text \\\"$project\\\", \\\"debug dump saved\\\" -Sound 'IM' -UniqueIdentifier 'claude-code'\"",
             "timeout": 5
           }
         ]

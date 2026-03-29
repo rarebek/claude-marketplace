@@ -10,7 +10,7 @@
       "name": "notify-on-done",
       "source": "./plugins/notify-on-done",
       "description": "Windows toast notification when Claude finishes responding",
-      "version": "1.5.1"
+      "version": "1.5.2"
     }
   ]
 }

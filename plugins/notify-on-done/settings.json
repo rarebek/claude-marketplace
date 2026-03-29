@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "shell": "powershell",
+            "command": "$project = Split-Path -Leaf (Get-Location); New-BurntToastNotification -Text \"Claude Code - $project\", 'Done' -Sound 'IM' -UniqueIdentifier 'claude-code'",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  }
+}

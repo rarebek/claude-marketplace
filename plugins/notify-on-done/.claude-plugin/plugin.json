@@ -1,7 +1,7 @@
 {
   "name": "notify-on-done",
   "description": "Windows toast notification with project name when Claude Code finishes responding",
-  "version": "1.5.2",
+  "version": "1.6.0",
   "author": {
     "name": "rarebek",
     "url": "https://github.com/rarebek"

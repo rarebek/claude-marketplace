@@ -9,5 +9,6 @@
   "homepage": "https://github.com/rarebek/claude-marketplace",
   "repository": "https://github.com/rarebek/claude-marketplace",
   "license": "MIT",
-  "keywords": ["notification", "windows", "toast"]
+  "keywords": ["notification", "windows", "toast"],
+  "hooks": "./hooks/hooks.json"
 }

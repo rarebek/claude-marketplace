@@ -21,4 +21,8 @@ try {
     $msg = "Ready"
 }
 
-New-BurntToastNotification -Text $project, $msg -Sound 'IM' -UniqueIdentifier 'claude-code'
+$binding = New-BTBinding -Children (New-BTText -Text $project), (New-BTText -Text $msg)
+$visual = New-BTVisual -BindingGeneric $binding
+$audio = New-BTAudio -Source 'ms-winsoundevent:Notification.IM'
+$content = New-BTContent -Visual $visual -Audio $audio
+Submit-BTNotification -Content $content -UniqueIdentifier 'claude-code'

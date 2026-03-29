@@ -1,16 +1,17 @@
+[Console]::InputEncoding = [System.Text.Encoding]::UTF8
 $raw = $input | Out-String
 $project = Split-Path -Leaf (Get-Location)
 
 try {
-    # Fix encoding: stdin may arrive as UTF-16LE with null bytes
     $clean = $raw -replace "`0", ""
     $data = $clean | ConvertFrom-Json
 
-    # Use last assistant message, truncated to fit notification
     $msg = $data.last_assistant_message
     if ($msg) {
-        # Strip markdown formatting
+        # Strip markdown formatting and special chars
         $msg = $msg -replace '`[^`]*`', '' -replace '\*\*([^*]*)\*\*', '$1' -replace '\*([^*]*)\*', '$1'
+        # Replace em/en dashes and other unicode punctuation with ASCII
+        $msg = $msg -replace [char]0x2014, '-' -replace [char]0x2013, '-' -replace [char]0x2018, "'" -replace [char]0x2019, "'" -replace [char]0x201C, '"' -replace [char]0x201D, '"'
         $msg = $msg.Trim()
         if ($msg.Length -gt 120) {
             $msg = $msg.Substring(0, 117) + "..."

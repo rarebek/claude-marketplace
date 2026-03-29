@@ -1,7 +1,7 @@
 {
   "name": "notify-on-done",
   "description": "Windows toast notification with project name when Claude Code finishes responding",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": {
     "name": "rarebek",
     "url": "https://github.com/rarebek"
@@ -10,5 +10,18 @@
   "repository": "https://github.com/rarebek/claude-marketplace",
   "license": "MIT",
   "keywords": ["notification", "windows", "toast"],
-  "hooks": "./hooks/hooks.json"
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "shell": "powershell",
+            "command": "$project = Split-Path -Leaf (Get-Location); New-BurntToastNotification -Text \"Claude Code - $project\", 'Done' -Sound 'IM' -UniqueIdentifier 'claude-code'",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  }
 }

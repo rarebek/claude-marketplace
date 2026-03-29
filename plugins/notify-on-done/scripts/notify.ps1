@@ -1,21 +1,24 @@
-$json = $input | Out-String
+$raw = $input | Out-String
 $project = Split-Path -Leaf (Get-Location)
 
-# Save debug dump
-$json | Out-File -FilePath "$env:USERPROFILE\.claude\stop-hook-debug.json" -Force
-
-# Parse JSON for context
-$title = "Claude Code - $project"
-$body = "Ready"
-
 try {
-    $data = $json | ConvertFrom-Json
-    if ($data.stop_hook_active_task_subject) {
-        $body = $data.stop_hook_active_task_subject
-    }
-    if ($data.transcript_summary) {
-        $body = $data.transcript_summary
-    }
-} catch {}
+    # Fix encoding: stdin may arrive as UTF-16LE with null bytes
+    $clean = $raw -replace "`0", ""
+    $data = $clean | ConvertFrom-Json
 
-New-BurntToastNotification -Text $title, $body -Sound 'IM' -UniqueIdentifier 'claude-code'
+    # Use last assistant message, truncated to fit notification
+    $msg = $data.last_assistant_message
+    if ($msg) {
+        # Strip markdown formatting
+        $msg = $msg -replace '`[^`]*`', '' -replace '\*\*([^*]*)\*\*', '$1' -replace '\*([^*]*)\*', '$1'
+        $msg = $msg.Trim()
+        if ($msg.Length -gt 120) {
+            $msg = $msg.Substring(0, 117) + "..."
+        }
+    }
+    if (-not $msg) { $msg = "Ready" }
+} catch {
+    $msg = "Ready"
+}
+
+New-BurntToastNotification -Text $project, $msg -Sound 'IM' -UniqueIdentifier 'claude-code'
